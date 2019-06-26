@@ -13,9 +13,9 @@
         <prismic-rich-text :field="fields.title" class="leading-none" />
         <prismic-rich-text :field="fields.description" />
         <ul class="flex flex-wrap">
-          <li v-for="infoItem in info" :key="infoItem.title" class="w-6/12">
-            <h3>{{ infoItem.title }}</h3>
-            <p>{{ infoItem.desc }}</p>
+          <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="w-6/12">
+            <prismic-rich-text :field="infoItem.title1" />
+            <prismic-rich-text :field="infoItem.info_description" />
           </li>
         </ul>
         <prismic-rich-text :field="fields.letter_title" />
@@ -37,8 +37,8 @@
             </h3>
             <ul>
               <li v-for="course in topic.courses" :key="course.title">
-                <h3>{{ course.title }}</h3>
-                <p>{{ course.desc }}</p>
+                <prismic-rich-text :field="course.course_title" />
+                <prismic-rich-text :field="course.course_description" />
               </li>
             </ul>
           </div>
@@ -54,12 +54,12 @@
           <h2>Meet the team</h2>
         </header>
         <div class="flex -m-4">
-          <div v-for="content in contents" :key="content.title" class="flex-1 px-4">
-            <img src="http://placekitten.com/g/300/200" class="my-8 rounded">
-            <h3>{{ content.title }}</h3>
-            <div v-html="content.body" />
-            <sk-button :href="content.ctaLink" class="mt-8" reverse>
-              {{ content.ctaText }}
+          <div v-for="(content, key) in meet_the_team" :key="`meet-the-team-${key}`" class="flex-1 px-4">
+            <img :src="content.article_image.url" class="my-8 rounded">
+            <prismic-rich-text :field="content.article_title" />
+            <prismic-rich-text :field="content.article_description" />
+            <sk-button :href="content.article_link.url" class="mt-8" reverse>
+              {{ $prismic.richTextAsPlain(content.cta_text) }}
             </sk-button>
           </div>
         </div>
@@ -99,103 +99,21 @@ export default {
     SkButton
   },
 
-  data() {
-    return {
-      info: [
-        {
-          title: 'Starts 20th July 2019',
-          desc: '10 weeks, 2 hours per week'
-        },
-        {
-          title: 'Led by female developers',
-          desc: 'For girls of all abilities'
-        },
-        {
-          title: 'Free of charge',
-          desc: 'Supported by SamKnows'
-        },
-        {
-          title: 'Central london location',
-          desc: 'Nearest station London bridge'
-        }
-      ],
-      topics: [
-        {
-          title: 'Coding',
-          courses: [
-            {
-              title: 'Introduction',
-              desc: 'Learn the basics of computer programming'
-            },
-            {
-              title: 'Mobile development',
-              desc: 'Create your own Instargram'
-            },
-            {
-              title: 'Gaming',
-              desc: 'Build your own teris'
-            },
-            {
-              title: 'Voice recognition',
-              desc: 'Make your machine listen to you'
-            },
-            {
-              title: 'Website development',
-              desc: 'Build you own facebook'
-            }
-          ]
-        },
-        {
-          title: 'Personal develment',
-          courses: [
-            {
-              title: 'Personal website',
-              desc: 'Set up a website to showcase your work'
-            },
-            {
-              title: 'CV writing',
-              desc: 'How to write an impressive CV'
-            },
-            {
-              title: 'Cover letter',
-              desc: 'How to stand out with your cover letter'
-            },
-            {
-              title: 'One-on-one mentoring',
-              desc: 'With a professional female team…'
-            }
-          ]
-        }
+  computed: {
+    topics() {
+      return this.courses.reduce((topics, course) => {
+        const topic = topics.find(topic => topic.title === course.topic)
 
-      ],
-      contents: [
-        {
-          title: 'Samira and friends',
-          img: '',
-          body: `We sat down with our tennis-loving, Germanspeaking, It's always sunny in Philadelphiamad Android developer, Samira, to ask her all
-about her job, why she loves working in tech,
-and why she wants more women to choose
-programming as a career. Samira recently set
-up an exciting new project to teach young
-women how to code, called Project Margaret
-Hamilton.`,
-          ctaText: 'Read more',
-          ctaLink: 'https://www.samknows.com/blog/myth-busters-life-as-an-android-developer'
-        },
-        {
-          title: 'SamKnows',
-          img: '',
-          body: `<p>We are the global leaders in broadband
-performance monitoring with an ambition to
-create a well balanced diverse working
-enviroment.</p>
-<p>After struggling to atract enough female
-candidates to our open positions we decided
-to do something about it…</p>`,
-          ctaText: 'Open positions',
-          ctaLink: 'https://www.samknows.com/careers'
+        if (topic) {
+          topic.courses.push(course)
+        } else {
+          topics.push({
+            title: course.topic,
+            courses: [ course ]
+          })
         }
-      ]
+        return topics
+      }, [])
     }
   },
 
@@ -207,12 +125,18 @@ to do something about it…</p>`,
       const result = await api.getSingle('homepage')
       fields = result.data
 
-      // Load the edit button
       if (process.client) window.prismic.setupEditButton()
+
+      const slices = {}
+
+      fields.body.forEach((slice) => {
+        slices[slice.slice_type] = slice.items
+      })
 
       return {
         fields,
-        documentId: result.id
+        documentId: result.id,
+        ...slices
       }
     } catch (e) {
       error({ statusCode: 404, message: 'Page not found' })
