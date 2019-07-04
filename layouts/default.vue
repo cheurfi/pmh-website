@@ -1,7 +1,7 @@
 <template>
   <div class="font-body">
     <nuxt />
-    <footer class="text-yellow bg-purple">
+    <footer class="text-yellow bg-purple p-4">
       SamKnows Ltd 2019 All Right Reserved
     </footer>
   </div>
@@ -81,7 +81,7 @@ h1 {
   }
 
   @include breakpoint(M) { */
-    font-size: 72px;
+    font-size: 96px;
     letter-spacing: -2px;
   /* } */
 }

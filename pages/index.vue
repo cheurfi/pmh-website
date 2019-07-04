@@ -1,21 +1,31 @@
 <template>
   <main class="border-pink text-purple relative">
-    <section class="bg-yellow p-20">
+    <section class="bg-yellow p-20 ">
       <div class="max-w-2xl">
-        <header class="mb-20">
-          <p class="text-pink m-0">
-            SamKnows
-          </p>
-          <p class="text-5xl leading-none w-20">
-            <b>Project Margaret Hamilton.</b>
-          </p>
+        <header class="mb-20 flex justify-between">
+          <div>
+            <p class="text-pink m-0">
+              SamKnows
+            </p>
+            <p class="text-5xl leading-none">
+              <b>Project <br> Margaret <br> Hamilton.</b>
+            </p>
+          </div>
+          <img src="/images/logo.svg" alt="">
         </header>
-        <prismic-rich-text :field="fields.title" class="leading-none" />
+        <prismic-rich-text :field="fields.title" class="leading-none mb-5" />
         <prismic-rich-text :field="fields.description" />
-        <ul class="flex flex-wrap">
-          <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="w-6/12">
-            <prismic-rich-text :field="infoItem.title1" />
-            <prismic-rich-text :field="infoItem.info_description" />
+        <ul class="flex flex-wrap mt-10 mb-20">
+          <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="w-6/12 flex">
+            <div class="bg-white rounded-full flex items-center justify-center mr-4 info-item__circle">
+              <img class="" src="/images/tick.svg">
+            </div>
+            <div>
+              <h3 class="text-2xl">
+                {{ $prismic.richTextAsPlain(infoItem.title1) }}
+              </h3>
+              <prismic-rich-text :field="infoItem.info_description" />
+            </div>
           </li>
         </ul>
         <prismic-rich-text :field="fields.letter_title" />
@@ -45,7 +55,7 @@
         </div>
       </div>
     </section>
-    <section class="bg-yellow p-20">
+    <section class="bg-yellow p-20 flex justify-between">
       <div class="max-w-2xl">
         <header>
           <p class="text-pink m-0">
@@ -55,7 +65,7 @@
         </header>
         <div class="flex -m-4">
           <div v-for="(content, key) in meet_the_team" :key="`meet-the-team-${key}`" class="flex-1 px-4">
-            <img :src="content.article_image.url" class="my-8 rounded">
+            <img :src="content.article_image.url" class="my-8 rounded meet-team__image">
             <prismic-rich-text :field="content.article_title" />
             <prismic-rich-text :field="content.article_description" />
             <sk-button :href="content.article_link.url" class="mt-8" reverse>
@@ -64,10 +74,14 @@
           </div>
         </div>
       </div>
+      <div>
+        <img src="/images/mh-rocket.svg" alt="">
+      </div>
     </section>
-    <aside class="fixed top-0 right-0 max-w-sm bg-purple text-white">
+
+    <aside class="fixed max-w-sm bg-purple text-white home__aside rounded">
       <div class="p-10">
-        <sk-button href="/" color="cyan">
+        <sk-button href="mailto:pmh@samknows.com" color="cyan">
           Apply for a place
         </sk-button>
         <h2>Why</h2>
@@ -84,6 +98,7 @@
           SE1 9EA - Get directions
         </p>
       </div>
+      <img src="/images/map.png" alt="">
     </aside>
   </main>
 </template>
@@ -148,5 +163,20 @@ export default {
 <style>
 main {
   border-top: 5px solid;
+}
+
+.info-item__circle {
+  width: 40px;
+  height: 40px;;
+}
+
+.home__aside {
+  top: 90px;
+  right: 200px;
+  box-shadow: 0px 2px 10px rgba(90, 85, 153, 0.33);
+}
+
+.meet-team__image {
+  box-shadow: 0px 2px 4px rgba(40, 64, 78, 0.33);
 }
 </style>
