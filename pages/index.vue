@@ -15,6 +15,7 @@
         </header>
         <prismic-rich-text :field="fields.title" class="leading-none mb-5" />
         <prismic-rich-text :field="fields.description" />
+
         <ul class="flex flex-wrap mt-10 mb-20">
           <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="w-6/12 flex">
             <div class="bg-white rounded-full flex items-center justify-center mr-4 info-item__circle">
@@ -28,6 +29,7 @@
             </div>
           </li>
         </ul>
+
         <prismic-rich-text :field="fields.letter_title" />
         <prismic-rich-text :field="fields.letter_body" />
       </div>
@@ -41,7 +43,7 @@
           <h2>What you will learn</h2>
         </header>
         <div class="flex">
-          <div v-for="(topic, key) in topics" :key="`topic-${key}`" class="flex-1">
+          <div v-for="(topic, key) in topics" :key="`topic-${key}`" class="flex-1" :class="{ 'ml-10' : key === 1 }">
             <h3 class="text-pink">
               {{ topic.title }}
             </h3>

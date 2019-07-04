@@ -108,7 +108,7 @@ h3 {
   }
 
   @include breakpoint(M) { */
-    font-size: 36px;
+    font-size: 30px;
     letter-spacing: -0.5px;
   /* } */
 }
