@@ -1,6 +1,6 @@
-# mph
+# pmh
 
-> My grand Nuxt.js project
+> Project Margaret Hamilton - SamKnows
 
 ## Build Setup
 

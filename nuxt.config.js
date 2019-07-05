@@ -11,7 +11,7 @@ export default {
       { src: '//static.cdn.prismic.io/prismic.min.js' }
     ],
     __dangerouslyDisableSanitizers: ['script'],
-    title: process.env.npm_package_name || '',
+    title: 'Project Margaret Hamilton - SamKnows',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -37,7 +37,8 @@ export default {
   plugins: [
     '~/plugins/link-resolver.js',
     '~/plugins/html-serializer.js',
-    '~/plugins/prismic-vue.js'
+    '~/plugins/prismic-vue.js',
+    '~/plugins/global'
   ],
   /*
   ** Nuxt.js modules

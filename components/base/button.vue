@@ -39,18 +39,19 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .btn {
   display: block;
   text-align: center;
   @apply rounded p-2 w-full;
+
+  &--cyan {
+    @apply bg-cyan text-purple;
+  }
+
+  &--reverse {
+    @apply border border-purple text-purple;
+  }
 }
 
-.btn--cyan {
-  @apply bg-cyan text-purple;
-}
-
-.btn--reverse {
-  @apply border border-purple text-purple;
-}
 </style>

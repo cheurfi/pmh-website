@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 @font-face {
   font-family: 'Calibre';
   src: url('/fonts/Calibre-Regular.woff2') format('woff2'),
@@ -43,24 +43,9 @@ body {
   margin: 0;
 }
 
-/* hr {
-  border: 0;
-  border-top: 1px $grey-2 solid;
-  margin: 1em 0;
-} */
-
 figure {
   margin: 0;
 }
-
-/* a {
-  color: $color-fruity-8;
-  cursor: pointer;
-
-  &:hover {
-    color: inherit;
-  }
-} */
 
 h1,
 h2,
@@ -69,69 +54,71 @@ h4,
 h5,
 h6 {
   font-weight: 600;
+  line-height: 1;
 }
 
 h1 {
   font-size: 36px;
   letter-spacing: -0.5px;
 
-  /* @include breakpoint(S) {
+  @screen sm {
     font-size: 48px;
     letter-spacing: -1px;
   }
 
-  @include breakpoint(M) { */
+  @screen md {
     font-size: 96px;
     letter-spacing: -2px;
-  /* } */
+  }
 }
 
 h2 {
   font-size: 24px;
 
-  /* @include breakpoint(S) {
+  @screen sm {
     font-size: 36px;
     letter-spacing: -0.5px;
   }
 
-  @include breakpoint(M) { */
+  @screen md {
     font-size: 48px;
     letter-spacing: -1px;
-  /* } */
+  }
 }
 
 h3 {
   font-size: 20px;
 
-  /* @include breakpoint(S) {
+  @screen sm {
     font-size: 24px;
   }
 
-  @include breakpoint(M) { */
+  @screen md {
     font-size: 30px;
     letter-spacing: -0.5px;
-  /* } */
+  }
 }
 
 h4 {
   font-size: 16px;
 
-  /* @include breakpoint(S) {
+  @screen sm {
     font-size: 20px;
   }
 
-  @include breakpoint(M) { */
+  @screen md {
     font-size: 24px;
-  /* } */
+  }
 }
 
 p {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5em;
   margin: 0 0 1.5rem;
-  /* @include breakpoint(S) { */
-    font-size: 20px;
-  /* } */
+
+  @screen sm {
+    font-size: 1.2rem;
+  }
 }
 
 </style>
