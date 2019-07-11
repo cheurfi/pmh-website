@@ -17,8 +17,8 @@
         <prismic-rich-text :field="fields.description" />
 
         <ul class="home__project-info">
-          <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="w-6/12 flex">
-            <div class="bg-white rounded-full flex items-center justify-center mr-4 info-item__circle">
+          <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="home__info-item">
+            <div class="bg-white rounded-full flex items-center justify-center info-item__circle">
               <img class="" src="/images/tick.svg">
             </div>
             <div>
@@ -32,7 +32,8 @@
 
         <MhAside :details="details" />
 
-        <prismic-rich-text :field="fields.letter_title" />
+        <!-- <prismic-rich-text :field="fields.letter_title" /> -->
+        <h2 v-html="$prismic.richTextAsPlain(fields.letter_title)" />
         <prismic-rich-text :field="fields.letter_body" />
       </div>
     </section>
@@ -43,7 +44,9 @@
           <p class="text-pink m-0">
             Course curriculum
           </p>
-          <h2>What you will learn</h2>
+          <h2 class="home__section-title">
+            What you will learn
+          </h2>
         </header>
         <div class="home__courses">
           <div v-for="(topic, key) in topics" :key="`topic-${key}`" class="flex-1">
@@ -62,15 +65,15 @@
     </section>
 
     <section class="home__section home__section--yellow home__team">
-      <div class="home__inner-content">
+      <div class="home__inner-content flex-1">
         <header>
           <p class="text-pink m-0">
             Say hi
           </p>
           <h2>Meet the team</h2>
         </header>
-        <div class="meet-team -m-4">
-          <div v-for="(content, key) in meet_the_team" :key="`meet-the-team-${key}`" class="flex-1 px-4">
+        <div class="meet-team">
+          <div v-for="(content, key) in meet_the_team" :key="`meet-the-team-${key}`" class="flex-1 meet-team__item">
             <img :src="content.article_image.url" class="my-8 rounded meet-team__image">
             <prismic-rich-text :field="content.article_title" />
             <prismic-rich-text :field="content.article_description" />
@@ -80,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="flex-1">
         <img src="/images/mh-rocket.svg" alt="" class="home__mh-image">
       </div>
     </section>
@@ -183,11 +186,26 @@ main {
     }
   }
 
+  &__section-title {
+    @apply mb-10;
+    @screen lg {
+      @apply mb-20;
+    }
+  }
+
   &__project-info {
     @apply  mt-5 mb-10;
 
     @screen lg {
       @apply flex flex-wrap mt-10 mb-20;
+    }
+  }
+
+  &__info-item {
+    @apply flex;
+
+    @screen lg {
+      @apply w-6/12 ;
     }
   }
 
@@ -213,13 +231,37 @@ main {
 }
 
 .info-item__circle {
-  width: 40px;
-  height: 40px;;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  @apply mr-2;
+
+  img {
+    width: 1rem;
+  }
+
+  @screen lg {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    @apply mr-4;
+
+    img {
+      width: auto;
+    }
+  }
 }
 
 .meet-team {
   @screen md {
+    @apply -m-6;
     @apply flex;
+  }
+
+  &__item {
+    @screen md {
+      @apply p-6;
+    }
   }
 
   &__image {

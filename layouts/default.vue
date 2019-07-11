@@ -39,7 +39,6 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* color: $color-neutral-1; */
   margin: 0;
 }
 
@@ -55,6 +54,7 @@ h5,
 h6 {
   font-weight: 600;
   line-height: 1;
+  margin-bottom: 0.5em;
 }
 
 h1 {

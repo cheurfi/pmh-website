@@ -1,12 +1,12 @@
 <template>
   <aside class="mh-aside">
     <div class="mh-aside__content">
-      <base-button href="mailto:pmh@samknows.com" color="cyan">
+      <base-button href="mailto:pmh@samknows.com" color="cyan" class="mh-aside__button">
         Apply for a place
       </base-button>
       <div v-for="(detail, key) in details" :key="`detail-${key}`">
-        <prismic-rich-text :field="detail.detail_title" />
-        <prismic-rich-text :field="detail.detail_description" />
+        <prismic-rich-text :field="detail.detail_title" class="mh-aside__title" />
+        <prismic-rich-text :field="detail.detail_description" class="mh-aside__text" />
       </div>
     </div>
     <img src="/images/map.png" alt="">
@@ -34,7 +34,7 @@ export default {
 
   @screen lg {
     @apply fixed max-w-xs;
-    top: 90px;
+    top: 50px;
     right: 20px;
   }
 
@@ -49,6 +49,18 @@ export default {
     @screen xl {
       @apply p-10;
     }
+  }
+
+  &__title h2 {
+    font-size: 2rem;
+  }
+
+  &__text p {
+    @apply mb-3;
+  }
+
+  &__button {
+    @apply mb-10;
   }
 }
 </style>
