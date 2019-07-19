@@ -51,5 +51,11 @@ declare -A SERVER_WITH_SSL_MAP=(
 # Override the DNS name used for this site
 DNS_SUFFIX="projectmargarethamilton.com"
 
+# Appended webroot for the vhost directory
+VHOST_SUBDIR="/dist"
+
 # Using Node 10
 NODE_VER="10.16.0"
+
+# Append running a generate after the build command:
+NODE_BUILD_CMD="${NODE_BUILD_CMD} && npm run generate"
