@@ -1,0 +1,55 @@
+#!/bin/bash
+
+############
+# This file contains variables specific to this repoistory and
+# is sourced by the deploy script at start-up.
+# Author: Russell Knighton <russell@samknows.com>
+# Initial Creation Date: 29/09/2016
+#
+#  Version : 2.8
+#  Date    : 18/04/2018
+#
+############
+
+##########################
+## Repo Branch Mappings ##
+##########################
+
+# GIT_REPO_ORIGIN: The name of the remote repository. This is a safe guard hard coding the name of
+# the repo to this default-env file. It's checked against the repo in which this deploy is running, and
+# if it doesn't match, we abort the run. This is done to prevent someone just cloning a repo and then
+# overwriting the master.
+#
+# ONLY CHANGE THIS IS YOU HAVE CLONED THIS REPOSITORY AND UPDATED ALL THE RELEVENT VARIABLES BELOW!!!
+GIT_REPO_ORIGIN="pmh-website"
+
+# SERVER_BRANCH_OVERRIDE_MAP: A map of of SERVER->"BRANCH->OVERRIDENAME" pairs, semicolon seperated. Used to override directory/branch naming.
+# It is also possible to append a PIPE and comma seperated list of alias names for a server, such as "BRANCH->OVERRIDENAME|ALIAS1,ALIAS2,ALIAS3"
+# _DNS_ is a reserved name for aliases, meaning that the alias will become the value of DNS_SUFFIX only.
+# If the value is prefixed with "REDIRECT_", this means this name/alias is used for the target of a redirection from http -> https
+# The reserved server-name of "ALL" can be used to apply a branch override to all servers, i.e. ["ALL"]="master->blah"
+# A string with '_LOCAL_' can be used, and _LOCAL_ will be converted to the local host shortname. The local host shortname is determined by stripping
+# web[0-9] from the server hostname, then parsing against the VHOST_LOCAL_ALIAS_MAP. If a match is found, then the mapping is used, otherwise the
+# stripped name is used. i.e. status_LOCAL_, on newweb1 becomes status-us (due to a match with the mapping), and fraweb1 becomes status-fra (no mapping).
+# If you are using multiple aliases, make sure you define the shortest form first, and then the longer forms, i.e. b.com before a.b.com
+declare -A SERVER_BRANCH_OVERRIDE_MAP=(
+	["ALL"]="stage->dev|dev-_LOCAL_;master->www|www-_LOCAL_,REDIRECT__DNS_,www.projectmargarethamilton.co.uk,projectmargarethamilton.co.uk"
+)
+
+# BRANCH_WITH_SSL_MAP: A map of BRANCH->"[yes|no]" pairs to override the default value of WITH_SSL_DEFAULT, setting whether or not a branch will be set-up with HTTPS support.
+# NOTE: This has precedence over SERVER_WITH_SSL_MAP
+declare -A BRANCH_WITH_SSL_MAP=(
+	["develop"]="yes"
+)
+
+# SERVER_WITH_SSL_MAP: A map of SERVER->"[yes|no]" pairs to override the default value of WITH_SSL_DEFAULT, setting whether or not a server will be set-up with HTTPS support
+declare -A SERVER_WITH_SSL_MAP=(
+	["web-sandbox.samknows.com"]="no"
+	["web-sandbox2.samknows.com"]="no"
+)
+
+# Override the DNS name used for this site
+DNS_SUFFIX="projectmargarethamilton.com"
+
+# Using Node 10
+NODE_VER="10.16.0"

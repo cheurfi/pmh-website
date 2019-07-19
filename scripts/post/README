@@ -1,0 +1,44 @@
+############
+#
+# README for how post scripts are sourced
+# 
+# Author: Russell Knighton <russell@samknows.com>
+# Initial Creation Date: 29/09/2016
+#
+#  Version : 4
+#  Date    : 30/08/2017
+#
+############
+
+Introduction:
+In this folder, you can create post deployment files that are sourced once for each
+server in a deployment, after all other stages have run.
+
+=== Post Deploy Scripts ===
+Files are sourced in the following cascading order:
+
+post/[branch]/[server]/post.sh  - Run only on a specific server for a specific branch
+post/[branch]/post.sh           - Run on every server, but only for a specific branch
+post/[server]/post.sh			- Run only on a specific server
+post/post.sh                    - Run on every server for every branch
+
+The first one that is found is executed and, by default, the process stops searching 
+for any further post.sh scripts. If you want it to keep cascading, i.e. to run a script 
+for a specific server, but then also run a global script, then set the variable 
+"NEXT=true" before the post-script exits, and it will continue searching for the next 
+script to run.
+
+=== Environment Scripts ===
+You can also set environment variables in a reverse cascade order to the post deploy
+scripts, before the post.sh scripts are run.
+
+They are sourced in the following order, so you can set defaults in the first env.sh
+file, which are then potentially overridden with lower files.
+post/env.sh                    - Global defaults go here
+post/[server]/env.sh           - Server specific overrides go here
+post/[branch]/env.sh           - Branch specific overrides go here
+post/[branch]/[server]/env.sh  - Server overrides for a specific branch go here
+
+Unlike the post.sh cascade search, the env.sh cascade search does not stop at the first
+file it finds, instead it keeps searching for and executing all further env.sh files as
+they are found.

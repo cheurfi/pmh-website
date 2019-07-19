@@ -1,0 +1,44 @@
+############
+#
+# README for how pre scripts are sourced
+# 
+# Author: Russell Knighton <russell@samknows.com>
+# Initial Creation Date: 29/09/2016
+#
+#  Version : 2
+#  Date    : 30/08/2017
+#
+############
+
+Introduction:
+In this folder, you can create pre installation files that are sourced once for each 
+server in a deployment, before the installation stage.
+
+=== Pre Installation Scripts ===
+Files are sourced in the following cascading order:
+
+pre/[branch]/[server]/pre.sh  - Run only on a specific server for a specific branch
+pre/[branch]/pre.sh           - Run on every server, but only for a specific branch
+pre/[server]/pre.sh			  - Run only on a specific server
+pre/pre.sh                    - Run on every server for every branch
+
+The first one that is found is executed and, by default, the process stops searching
+for any further pre.sh scripts. If you want it to keep cascading, i.e. to run a script
+for a specific server, but then also run a global script, then set the varaible 
+"NEXT=true" before the pre-script exits, and it will continue searching for the next 
+script to run.
+
+=== Environment Scripts ===
+You can also set environment variables in a reverse cascade order to the pre install
+scripts, before the pre.sh scripts are run.
+
+They are sourced in the following order, so you can set defaults in the first env.sh
+file, which are then potentially overridden with lower files.
+pre/env.sh                    - Global defaults go here
+pre/[server]/env.sh           - Server specific overrides go here
+pre/[branch]/env.sh           - Branch specific overrides go here
+pre/[branch]/[server]/env.sh  - Server overrides for a specific branch go here
+
+Unlike the pre.sh cascade search, the env.sh cascade search does not stop at the first
+file it finds, instead it keeps searching for and executing all further env.sh files as
+they are found.
