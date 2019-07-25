@@ -6,6 +6,9 @@ export default {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: {
+      lang: 'en'
+    },
     script: [
       { innerHTML: '{ window.prismic = { endpoint: "' + PrismicConfig.apiEndpoint + '"} }' },
       { src: '//static.cdn.prismic.io/prismic.min.js' }
@@ -19,7 +22,7 @@ export default {
       { name: 'og:description', content: 'A free hands-on coding lab for girls' || '' },
       { name: 'og:title', content: 'Project Margaret Hamilton' },
       { name: 'og:site_name', content: 'Project Margaret Hamilton' },
-      { name: 'og:image', content: '/images/mh-rocket.svg' },
+      { name: 'og:image', content: '/images/sm-header.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
