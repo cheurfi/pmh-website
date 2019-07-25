@@ -15,7 +15,11 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'A free hands-on coding lab for girls' || '' },
+      { name: 'og:description', content: 'A free hands-on coding lab for girls' || '' },
+      { name: 'og:title', content: 'Project Margaret Hamilton' },
+      { name: 'og:site_name', content: 'Project Margaret Hamilton' },
+      { name: 'og:image', content: '/images/mh-rocket.svg' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -46,8 +50,11 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/eslint-module'
+    // '@nuxtjs/pwa',
+    '@nuxtjs/eslint-module',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-83048747-8'
+    }]
   ],
   /*
   ** Axios module configuration
