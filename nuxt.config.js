@@ -22,7 +22,7 @@ export default {
       { name: 'og:description', content: 'A free hands-on coding lab for girls' || '' },
       { name: 'og:title', content: 'Project Margaret Hamilton' },
       { name: 'og:site_name', content: 'Project Margaret Hamilton' },
-      { name: 'og:image', content: '/images/sm-header.png' }
+      { name: 'og:image', content: 'https://www.projectmargarethamilton.com/images/sm-header.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
