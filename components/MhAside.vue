@@ -45,10 +45,6 @@ export default {
 
   &__content {
     @apply p-5;
-
-    @screen xl {
-      @apply p-10;
-    }
   }
 
   &__title h2 {
