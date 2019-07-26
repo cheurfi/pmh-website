@@ -41,7 +41,9 @@ properties ([
 			daysToKeepStr: project.getAttrVal('jenkinsDaysToKeep').toString(),
 			numToKeepStr: project.getAttrVal('jenkinsNumToKeep').toString()
 		)
-	), disableConcurrentBuilds()
+	),
+	disableConcurrentBuilds(),
+	pipelineTriggers([[$class: "RemoteBuildTrigger", remoteBuildToken: "d9b34c23-feac-42b4-bbff-98b5cb668719" ]])
 ])
 
 // Load User Mapping class
