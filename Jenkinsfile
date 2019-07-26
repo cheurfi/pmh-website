@@ -43,7 +43,7 @@ properties ([
 		)
 	),
 	disableConcurrentBuilds(),
-	pipelineTriggers([[$class: "RemoteBuildTrigger", remoteBuildToken: "d9b34c23-feac-42b4-bbff-98b5cb668719" ]])
+	pipelineTriggers([[$class: "TimerTrigger", spec: "H H(7-9) * * 1-5" ]])
 ])
 
 // Load User Mapping class
