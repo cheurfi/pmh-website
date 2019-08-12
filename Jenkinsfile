@@ -7,8 +7,8 @@
 	with configuration pulled from LDAP.
 
 	Author:  Russell Knighton
-	Version: 5.0
-	Date:    05/06/2019
+	Version: 5.1
+	Date:    09/08/2019
 
 */
 
@@ -24,7 +24,7 @@ def decodedRepoName = java.net.URLDecoder.decode(gitRepo, 'UTF-8')
 def decodedBranchName = java.net.URLDecoder.decode(gitBranch, 'UTF-8')
 
 // Source the SamKnows Library (sklib)
-@Library('sklib@withstages')
+@Library('sklib@develop')
 
 // Load the LDAP connection Configuration and initialise the project
 import org.sk.Project
@@ -33,16 +33,7 @@ project = Project.newInstance(decodedRepoName, decodedBranchName, this)
 project.init()
 
 // Set-up the Jenkins pipeline job data retention policy, and prevent build concurency:
-properties ([
-	buildDiscarder(
-		logRotator(
-			artifactNumToKeepStr: project.getAttrVal('jenkinsArtifactNumToKeep').toString(),
-			artifactDaysToKeepStr: project.getAttrVal('jenkinsArtifactDaysToKeep').toString(),
-			daysToKeepStr: project.getAttrVal('jenkinsDaysToKeep').toString(),
-			numToKeepStr: project.getAttrVal('jenkinsNumToKeep').toString()
-		)
-	), disableConcurrentBuilds()
-])
+properties (project.getProjectProperties())
 
 // Load User Mapping class
 import org.sk.Users
@@ -54,25 +45,10 @@ if (!(project.isEnabled())) {
 	println "The project is currently disabled in LDAP."
 	currentBuild.result = 'ABORTED'
 } else {
-	node (project.getJenkinsNodeType()) {
-		currentBuild.result = 'SUCCESS'
+	pipeline {
 		try {
-			// Source checkout stage
-			project.doCheckout()
-			try {
-				project.doToolsCheckStep()
-				project.doBuild()
-				project.doTest()
-				project.doDeploy()
-			} catch (e) {
-				println e.toString()
-				currentBuild.result = 'FAILURE'
-			} finally {
-				// If the project isn't disabled with a NOCI commit flag, we post reports:
-				if (!(project.hasNoCiFlag())) {
-					project.doReport()
-				}
-			}
+			currentBuild.result = 'SUCCESS'
+			project.run()
 		} catch (err) {
 			currentBuild.result = 'FAILURE'
 			println "Error caught:\n" + err.toString()
