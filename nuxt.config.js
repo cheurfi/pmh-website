@@ -6,6 +6,9 @@ export default {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: {
+      lang: 'en'
+    },
     script: [
       { innerHTML: '{ window.prismic = { endpoint: "' + PrismicConfig.apiEndpoint + '"} }' },
       { src: '//static.cdn.prismic.io/prismic.min.js' }
@@ -15,11 +18,9 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'A free hands-on coding lab for girls' || '' },
-      { name: 'og:description', content: 'A free hands-on coding lab for girls' || '' },
-      { name: 'og:title', content: 'Project Margaret Hamilton' },
-      { name: 'og:site_name', content: 'Project Margaret Hamilton' },
-      { name: 'og:image', content: '/images/mh-rocket.svg' },
+      { name: 'description', property: 'og:description', content: 'A free hands-on coding lab for girls' || '' },
+      { name: 'title', property: 'og:title', content: 'Project Margaret Hamilton' },
+      { name: 'image', property: 'og:image', content: 'https://www.projectmargarethamilton.com/images/sm-header.png' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

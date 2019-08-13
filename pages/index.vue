@@ -19,7 +19,7 @@
         <ul class="home__project-info">
           <li v-for="(infoItem, key) in project_information" :key="`infoItem-${key}`" class="home__info-item">
             <div class="bg-white rounded-full flex items-center justify-center info-item__circle">
-              <img class="" src="/images/tick.svg">
+              <img src="/images/tick.svg" alt="">
             </div>
             <div>
               <h3 class="text-2xl">
@@ -74,7 +74,7 @@
         </header>
         <div class="meet-team">
           <div v-for="(content, key) in meet_the_team" :key="`meet-the-team-${key}`" class="flex-1 meet-team__item">
-            <img :src="content.article_image.url" class="my-8 rounded meet-team__image">
+            <img :src="content.article_image.url" class="my-8 rounded meet-team__image" alt="">
             <prismic-rich-text :field="content.article_title" />
             <prismic-rich-text :field="content.article_description" />
             <base-button :href="content.article_link.url" class="mt-8" reverse>
