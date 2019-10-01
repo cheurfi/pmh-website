@@ -24,7 +24,7 @@ def decodedRepoName = java.net.URLDecoder.decode(gitRepo, 'UTF-8')
 def decodedBranchName = java.net.URLDecoder.decode(gitBranch, 'UTF-8')
 
 // Source the SamKnows Library (sklib)
-@Library('sklib@develop')
+@Library('sklib@rk_test')
 
 // Load the LDAP connection Configuration and initialise the project
 import org.sk.Project
