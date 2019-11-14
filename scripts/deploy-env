@@ -36,18 +36,6 @@ declare -A SERVER_BRANCH_OVERRIDE_MAP=(
 	["ALL"]="stage->dev|dev-_LOCAL_;master->www|www-_LOCAL_,REDIRECT__DNS_,www.projectmargarethamilton.co.uk,projectmargarethamilton.co.uk"
 )
 
-# BRANCH_WITH_SSL_MAP: A map of BRANCH->"[yes|no]" pairs to override the default value of WITH_SSL_DEFAULT, setting whether or not a branch will be set-up with HTTPS support.
-# NOTE: This has precedence over SERVER_WITH_SSL_MAP
-declare -A BRANCH_WITH_SSL_MAP=(
-	["develop"]="yes"
-)
-
-# SERVER_WITH_SSL_MAP: A map of SERVER->"[yes|no]" pairs to override the default value of WITH_SSL_DEFAULT, setting whether or not a server will be set-up with HTTPS support
-declare -A SERVER_WITH_SSL_MAP=(
-	["web-sandbox.samknows.com"]="no"
-	["web-sandbox2.samknows.com"]="no"
-)
-
 # Override the DNS name used for this site
 DNS_SUFFIX="projectmargarethamilton.com"
 
