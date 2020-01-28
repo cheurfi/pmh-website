@@ -1,7 +1,7 @@
 <template>
   <aside class="mh-aside">
     <div class="mh-aside__content">
-      <base-button href="mailto:pmh@samknows.com" color="cyan" class="mh-aside__button">
+      <base-button href="mailto:theprojectmargarethamilton@gmail.com" color="cyan" class="mh-aside__button">
         Apply for a place
       </base-button>
       <div v-for="(detail, key) in details" :key="`detail-${key}`">
