@@ -9,7 +9,7 @@ export default {
   props: {
     href: {
       type: String,
-      required: true
+      required: false
     },
     color: {
       type: String,
