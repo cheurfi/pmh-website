@@ -19,7 +19,7 @@
     "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/pwa": "^2.6.0",
     "node-sass": "^4.12.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.18.1",
     "prismic-dom": "^2.1.0",
     "prismic-javascript": "^2.0.3",
     "prismic-vue": "git+https://github.com/prismicio/prismic-vue.git#nuxt",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.15.1",
+    "eslint": "^9.39.1",
     "eslint-config-standard": ">=12.0.0",
     "eslint-plugin-import": ">=2.16.0",
     "eslint-plugin-jest": ">=22.3.0",
